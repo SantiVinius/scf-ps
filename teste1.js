@@ -1,24 +1,22 @@
-var data =  require("./fakeData");
+let data = require("./fakeData");
 
-const getUser = ( req, res, next ) => {
-    
-    var name =  req.query.name;
+const getUser = (req, res) => {
+  const { id } = req.params;
+  
+  const register = data.find((register) => register.id === Number(id));
 
-    for(let i = 0; i < data.length;  i++) {
-        if(i.name == name) {
-            res.send(data[i]);
-        }
-    }
+  if (!register) {
+    return res.status(404).json({ error: "User not found" });
+  }
 
+  res.status(200).json(register);
 };
 
-const getUsers = ( req, res, next ) => {
-    
-    res.send(data);
-    
+const getUsers = (req, res) => {
+  res.status(200).json(data);
 };
 
 module.exports = {
-    getUser,
-    getUsers
+  getUser,
+  getUsers,
 };

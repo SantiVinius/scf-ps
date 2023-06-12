@@ -1,15 +1,13 @@
-var data =  require("./fakeData");
+let data = require("./fakeData");
 
-module.exports = function(req, res) {
-  
-    var name =  req.query.name;
+const deleteUser = (req, res) => {
+  const { id } = req.params;
 
-    for(let i = 0; i < data.length;  i++) {
-        if(i.name == name) {
-            data[i] = null;
-        }
-    }
+  data = data.filter((user) => user.id !== Number(id));
+  console.log("New Data", data);
+  res.status(200).json("sucess");
+};
 
-    res.send("success");
-
+module.exports = {
+  deleteUser,
 };
