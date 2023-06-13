@@ -1,4 +1,4 @@
-const user = require('../mock/fakeProfiles')
+const user = require('../mock/fakeProfile')
 
 function checkPermissions(allowedPermissions) {
   return function (req, res, next) {
