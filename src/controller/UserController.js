@@ -3,15 +3,20 @@ let data = require("../mock/fakeData");
 class UserController {
   // INÍCIO Teste 1
   getUser(req, res) {
-    const { id } = req.params;
+    const { name } = req.query;
 
-    const register = data.find((register) => register.id === Number(id));
+    const registers = data.filter((register) => register.name === name);
 
-    if (!register) {
+    if (!registers) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    res.status(200).json(register);
+    const response = {
+      users: registers,
+      count: `Usuário ${name} foi lido ${registers.length} vez(es).`,
+    };
+
+    res.status(200).json(response);
   }
 
   getUsers = (req, res) => {
@@ -73,14 +78,6 @@ class UserController {
     res.status(200).json({ id, name, job });
   }
   // FIM Teste 4
-
-  // INÍCIO Teste 5
-  countUser(req, res) {
-    const { name } = req.body;
-
-    res.send("Usuário " + name + "  foi lido 0 vezes.");
-  }
-  // FIM Teste 5
 }
 
 module.exports = new UserController();
